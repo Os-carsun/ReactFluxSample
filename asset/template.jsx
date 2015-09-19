@@ -1,4 +1,9 @@
 var JustTemplate = React.createClass({
+  getDefaultProps: function() {
+    return {
+      name: 'default value'
+    };
+  },
   render: function() {
     return (
       <div>Hello! {this.props.name}</div>
@@ -14,6 +19,7 @@ var Show = React.createClass({
     return (
       <div className="Show">
         {templates}
+        <JustTemplate/>
       </div>
     );
   }
