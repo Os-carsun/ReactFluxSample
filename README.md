@@ -1,2 +1,0 @@
-# ReactFluxSample
-just a sample
