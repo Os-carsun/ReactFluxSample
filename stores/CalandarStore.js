@@ -1,5 +1,5 @@
-var alt = require('../alt');
-var CalandarActions = require('../actions/CalandarAction.js');
+import alt from '../alt';
+import CalandarActions from '../actions/CalandarAction.js';
 
 class CalandarStore {
   constructor() {
@@ -33,4 +33,4 @@ class CalandarStore {
   }
 }
 
-module.exports = alt.createStore(CalandarStore, 'CalandarStore');
+export default alt.createStore(CalandarStore, 'CalandarStore');

@@ -1,4 +1,4 @@
-var alt = require('../alt');
+import alt from '../alt';
 
 class CalandarActions {
   nextMonth() {
@@ -9,4 +9,4 @@ class CalandarActions {
   }
 }
 
-module.exports = alt.createActions(CalandarActions);
+export default alt.createActions(CalandarActions);

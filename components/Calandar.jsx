@@ -1,44 +1,50 @@
-var React = require('react');
-var CalandarStore = require('../stores/CalandarStore');
-var CalandarAction = require('../actions/CalandarAction');
+import React from 'react';
+import CalandarStore from '../stores/CalandarStore';
+import CalandarAction from '../actions/CalandarAction';
 
-var CalandarBar = React.createClass({
+class CalandarBar extends React.Component {
   
+  constructor(props){
+    super(props)
+    this._onNextClick = this._onNextClick.bind(this);
+  }
+
   _onNextClick() {
     CalandarAction.nextMonth();
-  },
+  }
 
   _onLastClick() {
     CalandarAction.lastMonth();
-  },
+  }
 
   render() {
+
     return(
       <div>
-        <a onClick={this._onLastClick}> {"<<"} </a>
-        <span>{this.props.year}year {this.props.month}month</span>
+        <a onClick={this._onLastClick.bind(this)}> {"<<"} </a>
+        <span>{`${this.props.year} year ${this.props.month} month`}</span>
         <a onClick={this._onNextClick}> {">>"} </a>
       </div>
     )
   }
-})
+}
 
-var DateCell = React.createClass({
+class DateCell extends React.Component {
   render() {
     return <td>{this.props.date}</td>
   }
-})
+}
 
-var DateTable = React.createClass({
+class DateTable extends React.Component {
 
 
   _CalTable() {
-    var dates = [];
-    var row = [];
-    for(var k=0; k < this.props.begin.getDay(); k++ ){
+    let dates = [];
+    let row = [];
+    for(let k=0; k < this.props.begin.getDay(); k++ ){
       row.push(<DateCell key={k} date={" "}/>);
     }
-    for(var k=this.props.begin.getDate(); k <= this.props.end.getDate(); k++ ){
+    for(let k=this.props.begin.getDate(); k <= this.props.end.getDate(); k++ ){
       row.push(<DateCell key={k+"d"} date={k}/>);
       if(row.length > 6){ 
         dates.push(row);
@@ -49,7 +55,7 @@ var DateTable = React.createClass({
       dates.push(row);
     console.log(dates)
     return dates;
-  },
+  }
 
   render() {
 
@@ -58,32 +64,35 @@ var DateTable = React.createClass({
         <thead>
         </thead>
         <tbody>
-          {this._CalTable().map(function(data,index) {
+          {this._CalTable().map((data,index)=> {
             return <tr key={index}>{data}</tr>
           })}
         </tbody>
       </table>
     )
   }
-})
+}
 
-var Calandar = React.createClass({
-  getInitialState() {
-    return CalandarStore.getState();
-  },
+export default class Calandar extends React.Component {
+  
+  constructor(props) {
+    super(props)
+    this.state = CalandarStore.getState();
+    this.onChange = this.onChange.bind(this);
+  }
 
   componentDidMount() {
     CalandarStore.listen(this.onChange);
-  },
+  }
 
   componentWillUnmount() {
     CalandarStore.unlisten(this.onChange);
-  },
+  }
 
   onChange(state) {
     this.setState(state);
     console.log(state);
-  },
+  }
   
   render() {
     return (
@@ -93,6 +102,4 @@ var Calandar = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Calandar;
+}
