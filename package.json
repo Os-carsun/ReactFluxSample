@@ -4,7 +4,8 @@
   "description": "A simple flux tutorial built with alt and react",
   "dependencies": {
     "alt": "^0.16.7",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "superagent": "^0.2.0"
   },
   "devDependencies": {
     "babelify": "^6.1.3",
